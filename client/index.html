@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RPi - web-client</title>
+  <link rel="stylesheet" type="text/css" href="style.css" >
+</head>
+<body>
+  <div class="container">
+    <div class="buttons-block">
+      <button class="connection disconnected">CONNECT</button>
+      <input class="id-input" type="text" placeholder="Enter device id..." value="123456" />
+      <button class="ping">PING</button>
+      <div class="status-block">
+        <span class="close-btn">X</span><span class="status"></span>
+      </div>
+    </div>
+    <div class="message-block">
+      <div class="messages-header">
+        <div class="title">MESSAGES FROM THE SERVER</div>
+        <button class="clear-btn">CLEAR</button>
+      </div>
+      <textarea class="messages"></textarea>
+    </div>
+  </div>
+  <script src="./dist/main.js"></script>
+</body>
+</html>
