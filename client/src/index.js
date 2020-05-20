@@ -24,7 +24,7 @@ const socketHandler = () => {
     const deviceId = idInput.value
 
     ws.send(JSON.stringify({
-      client: 'device',
+      client: 'operator',
       command: 'init',
       data: deviceId,
     }))

@@ -21,7 +21,7 @@ const socketHandler = () => {
   ws.onopen = function () {
     connectionHandler(true)
     ws.send(JSON.stringify({
-      client: 'operator',
+      client: 'device',
       command: 'init',
       data: deviceId,
     }))
