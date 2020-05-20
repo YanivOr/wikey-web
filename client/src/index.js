@@ -1,5 +1,4 @@
 const WS_URL = 'ws://localhost:3000'
-const deviceId = '123456';
 
 let ws
 let connectBtn, messagesArea, statusBlock, statusArea, closeBtn, clearBtn
@@ -26,7 +25,7 @@ const socketHandler = () => {
     ws.send(JSON.stringify({
       client: 'operator',
       command: 'init',
-      data: deviceId,
+      value: deviceId,
     }))
   }
 
