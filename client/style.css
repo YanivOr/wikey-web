@@ -16,7 +16,7 @@ body {
 .toolbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
 .inputs-block {
@@ -41,11 +41,28 @@ body {
   margin-right: 10px;
 }
 
-.device-select {
-  margin: 5px 10px 0px 0px;
+.inputs-block label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 10px 0px 0px;
 }
 
-.id-input {
+.inputs-block label:not(:first-child) {
+  margin: 0px 10px 0px 10px;
+}
+
+.inputs-block select {
+  border: 0;
+  background: #666560;
+  font-size: 17px;
+  border-radius: 3px;
+  color: #eeeeee;
+  padding: 5px 3px;
+}
+
+.inputs-block .id-input {
   border: 0;
   background: #666560;
   font-size: 17px;
@@ -55,7 +72,7 @@ body {
   color: #eeeeee;
 }
 
-.id-input::placeholder {
+.inputs-block .id-input::placeholder {
   color: #dddddd;
 }
 
@@ -103,7 +120,7 @@ body {
 
 .message-block .messages {
   width: 798px;
-  height: 400px;
+  height: 200px;
   border: 0;
   background: #666560;
   font-size: 17px;

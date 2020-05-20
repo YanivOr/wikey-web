@@ -1,7 +1,7 @@
 const WS_URL = 'ws://localhost:3000'
 
 let ws
-let connectBtn, messagesArea, statusBlock, statusArea, closeBtn, clearBtn
+let connectBtn, messagesArea, statusBlock, statusArea, clearBtn
 
 const connectionHandler = (connected) => {
   if(connected) {
@@ -20,12 +20,13 @@ const socketHandler = () => {
   ws.onopen = function () {
     connectionHandler(true)
     
-    const deviceId = idInput.value
+    const id = idInput.value
+    const client = clientSelect.value
 
     ws.send(JSON.stringify({
-      client: 'operator',
+      client,
       command: 'init',
-      value: deviceId,
+      value: id,
     }))
   }
 
@@ -44,12 +45,12 @@ const socketHandler = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  connectBtn = document.querySelector('.buttons-block .connection')
+  clientSelect = document.querySelector('.inputs-block select')
   idInput = document.querySelector('.id-input')
+  connectBtn = document.querySelector('.buttons-block .connection')
+  clearBtn = document.querySelector('.message-block .messages-header .clear-btn')
   statusBlock = document.querySelector('.buttons-block .status-block')
   statusArea = document.querySelector('.buttons-block .status-block .status')
-  closeBtn = document.querySelector('.buttons-block .status-block .close-btn')
-  clearBtn = document.querySelector('.message-block .messages-header .clear-btn')
   messagesArea = document.querySelector('.message-block .messages')
 
   connectBtn.addEventListener('click', () => {
@@ -60,10 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
       ws.close()
     }
-  })
-
-  closeBtn.addEventListener('click', () => {
-    statusBlock.style.display = 'none'
   })
 
   clearBtn.addEventListener('click', () => {

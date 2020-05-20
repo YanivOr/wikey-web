@@ -11,12 +11,12 @@
   <div class="container">
     <div class="toolbar">
       <div class="inputs-block">
-        <div class="device-select">
-          <label>device</label>
-          <input type="radio" name="client" checked />
-          <label>operator</label>
-          <input type="radio" name="client" />
-        </div>
+        <label>client</label>
+        <select>
+          <option value="device">device</option>
+          <option value="operator">operator</option>
+        </select>
+        <label>id</label>
         <input class="id-input" type="text" placeholder="Enter device id..." value="123456" />
       </div>
       <div class="buttons-block">
