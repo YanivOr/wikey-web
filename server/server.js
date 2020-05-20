@@ -13,54 +13,78 @@ server.listen(3000, () => {
 })
 
 wss.on('connection', socket => {
-  socket.send('web socket connection is alive')
+  socket.send('websocket connected')
 
   socket.on('message', function(data){
     const parsedData = JSON.parse(data)
-    console.log(parsedData)
+    const msg = messagesHandler(socket, parsedData)
 
-    const msg = messagesHandler(parsedData)
-
-    console.log(devices)
-
-    /*
     if (msg) {
-      socket.send(msg)
-      console.log(msg)
+      socket.send(JSON.stringify(msg))
     }
-    */
   })
 })
 
-const messagesHandler = (data) => {
-  const { client } = data
+const messagesHandler = (socket, data) => {
+  const { type } = data
 
-  if (client === 'device') {
-    deviceHandler(data)
-  } else if (client === 'operator') {
-    operatorHandler(data)
+  if (type === 'device') {
+    return deviceHandler(socket, data)
+  } else if (type === 'operator') {
+    return operatorHandler(socket, data)
   }
 }
 
-const deviceHandler = ({command, value}) => {
+const deviceHandler = (socket, {command, id}) => {
   if (command === 'init') {
     devices = {
       ...devices,
-      [value]: {
+      [id]: {
         connected: true,
+        socket,
       }
     }
   }
 }
 
-const operatorHandler = ({command, value}) => {
+const operatorHandler = (socket, {command, device, id}) => {
   if (command === 'init') {
-    devices = {
-      ...devices,
-      [value]: {
-        ...devices[value],
-        operator: 'test123456',
+    if (!isDeviceExists(device)) {
+      return {
+        status: "error",
+        value: "device does't exists",
       }
     }
+
+    if (!isDeviceConnected(device)) {
+      return {
+        status: "error",
+        value: "device is not connected",
+      }
+    }
+
+    devices = {
+      ...devices,
+      [device]: {
+        ...devices[device],
+        operator: {
+          id,
+          socket,
+        }
+      }
+    }
+  } else if (command === 'ping') {
+    const data = {
+      message: 'ping'
+    }
+    devices[device].socket.send(JSON.stringify(data));
   }
+}
+
+const isDeviceExists = (device) => {
+  return devices[device]
+}
+
+const isDeviceConnected = (device) => {
+  return devices[device].connected
 }

@@ -4,11 +4,10 @@ body {
   margin: 0px;
   background: #0a0b16;
   color: #eeeeee;
-  text-transform: uppercase;
 }
 
 .container {
-  width: 800px;
+  width: 1200px;
   padding: 5px;
   margin : 50px auto;
 }
@@ -32,13 +31,10 @@ body {
   font-size: 17px;
   border: 0px;
   border-radius: 3px;
+  margin-left: 10px;
   color: #000;
   outline:none;
   cursor: pointer;
-}
-
-.buttons-block button:not(:last-child) {
-  margin-right: 10px;
 }
 
 .inputs-block label {
@@ -46,11 +42,8 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  white-space: nowrap;
   margin: 0px 10px 0px 0px;
-}
-
-.inputs-block label:not(:first-child) {
-  margin: 0px 10px 0px 10px;
 }
 
 .inputs-block select {
@@ -60,20 +53,32 @@ body {
   border-radius: 3px;
   color: #eeeeee;
   padding: 5px 3px;
+  width: 150px;
+  margin-right: 10px;
 }
 
-.inputs-block .id-input {
+.inputs-block input {
   border: 0;
   background: #666560;
   font-size: 17px;
   border-radius: 3px;
-  margin: 0px 10px 0px 0px;
   padding: 0px 3px;
   color: #eeeeee;
+  width: 150px;
+  margin-right: 10px;
 }
 
-.inputs-block .id-input::placeholder {
+.inputs-block input::placeholder {
   color: #dddddd;
+}
+
+.device-id-block, .operator-id-block {
+  display: flex;
+  flex-direction: row;
+}
+
+.operator-id-block {
+  display: none;
 }
 
 .buttons-block .connected {
@@ -86,11 +91,12 @@ body {
 
 .buttons-block .ping {
   background: orange;
+  display: none;
 }
 
 .message-block {
-  margin-top: 50px;
-  width: 800px;
+  margin-top: 30px;
+  width: 1200px;
 }
 
 .message-block .messages-header {
@@ -119,7 +125,7 @@ body {
 }
 
 .message-block .messages {
-  width: 798px;
+  width: 1196px;
   height: 200px;
   border: 0;
   background: #666560;

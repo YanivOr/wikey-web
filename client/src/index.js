@@ -1,7 +1,15 @@
 const WS_URL = 'ws://localhost:3000'
 
 let ws
-let connectBtn, messagesArea, statusBlock, statusArea, clearBtn
+let 
+  typeSelect,
+  deviceIdBlock,
+  operatorIdBlock,
+  deviceIdInput,
+  operatorIdInput,
+  connectBtn,
+  clearBtn,
+  messagesArea
 
 const connectionHandler = (connected) => {
   if(connected) {
@@ -20,14 +28,20 @@ const socketHandler = () => {
   ws.onopen = function () {
     connectionHandler(true)
     
-    const id = idInput.value
-    const client = clientSelect.value
+    const type = typeSelect.value
 
-    ws.send(JSON.stringify({
-      client,
+    const data = {
+      id: type === 'device' ? deviceIdInput.value : operatorIdInput.value,
+      type,
       command: 'init',
-      value: id,
-    }))
+    }
+
+    if (type === 'device') {
+      ws.send(JSON.stringify(data))
+    } else if (type === 'operator') {
+      data.device = deviceIdInput.value
+      ws.send(JSON.stringify(data))
+    }
   }
 
   ws.onmessage = function (e) {
@@ -45,12 +59,14 @@ const socketHandler = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  clientSelect = document.querySelector('.inputs-block select')
-  idInput = document.querySelector('.id-input')
+  typeSelect = document.querySelector('.inputs-block select')
+  deviceIdBlock = document.querySelector('.device-id-block')
+  operatorIdBlock = document.querySelector('.operator-id-block')
+  deviceIdInput = deviceIdBlock.querySelector('input')
+  operatorIdInput = operatorIdBlock.querySelector('input')
   connectBtn = document.querySelector('.buttons-block .connection')
+  pingBtn = document.querySelector('.buttons-block .ping')
   clearBtn = document.querySelector('.message-block .messages-header .clear-btn')
-  statusBlock = document.querySelector('.buttons-block .status-block')
-  statusArea = document.querySelector('.buttons-block .status-block .status')
   messagesArea = document.querySelector('.message-block .messages')
 
   connectBtn.addEventListener('click', () => {
@@ -63,7 +79,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+  pingBtn.addEventListener('click', () => {
+    const type = typeSelect.value
+
+    const data = {
+      id: operatorIdInput.value,
+      type,
+      command: 'ping',
+      device: deviceIdInput.value
+    }
+
+    ws.send(JSON.stringify(data))
+  })
+
   clearBtn.addEventListener('click', () => {
     messagesArea.value = ''
+  })
+
+  typeSelect.addEventListener('change', () => {
+    if (typeSelect.value === 'device') {
+      operatorIdBlock.style.display = 'none'
+      pingBtn.style.display = 'none'
+    } else {
+      operatorIdBlock.style.display = 'flex'
+      pingBtn.style.display = 'inline'
+    }
   })
 })

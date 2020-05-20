@@ -4,20 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>RPi - web-client</title>
+  <title>wikey - web</title>
   <link rel="stylesheet" type="text/css" href="style.css" >
 </head>
 <body>
   <div class="container">
     <div class="toolbar">
       <div class="inputs-block">
-        <label>client</label>
+        <label>Type</label>
         <select>
           <option value="device">device</option>
           <option value="operator">operator</option>
         </select>
-        <label>id</label>
-        <input class="id-input" type="text" placeholder="Enter device id..." value="123456" />
+        <div class="device-id-block">
+          <label>Device ID</label>
+          <input type="text" value="123456" />
+        </div>
+        <div class="operator-id-block">
+          <label>Operator ID</label>
+          <input type="text" value="111111" />
+        </div>
       </div>
       <div class="buttons-block">
         <button class="connection disconnected">CONNECT</button>
