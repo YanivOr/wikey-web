@@ -10,10 +10,16 @@ body {
 .container {
   width: 800px;
   padding: 5px;
-  margin : 20px auto;
+  margin : 50px auto;
 }
 
-.buttons-block {
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  
+}
+
+.inputs-block {
   display: flex;
   flex-direction: row;
 }
@@ -27,9 +33,16 @@ body {
   border: 0px;
   border-radius: 3px;
   color: #000;
-  margin-right: 10px;
   outline:none;
   cursor: pointer;
+}
+
+.buttons-block button:not(:last-child) {
+  margin-right: 10px;
+}
+
+.device-select {
+  margin: 5px 10px 0px 0px;
 }
 
 .id-input {
@@ -50,7 +63,6 @@ body {
   background: #52c152;
 }
 
-
 .buttons-block .disconnected {
   background: #fb2626;
 }
@@ -59,26 +71,8 @@ body {
   background: orange;
 }
 
-.buttons-block .status-block {
-  display: none;
-  flex-direction: row;
-  align-items: center;
-}
-
-.buttons-block .status-block .close-btn {
-  margin-right: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.buttons-block .status-block .status {
-  font-size: 14px;
-  font-weight: bold;
-  color: #CDCDCD; 
-}
-
 .message-block {
-  margin-top: 20px;
+  margin-top: 50px;
   width: 800px;
 }
 

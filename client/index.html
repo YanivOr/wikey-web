@@ -9,12 +9,19 @@
 </head>
 <body>
   <div class="container">
-    <div class="buttons-block">
-      <button class="connection disconnected">CONNECT</button>
-      <input class="id-input" type="text" placeholder="Enter device id..." value="123456" />
-      <button class="ping">PING</button>
-      <div class="status-block">
-        <span class="close-btn">X</span><span class="status"></span>
+    <div class="toolbar">
+      <div class="inputs-block">
+        <div class="device-select">
+          <label>device</label>
+          <input type="radio" name="client" checked />
+          <label>operator</label>
+          <input type="radio" name="client" />
+        </div>
+        <input class="id-input" type="text" placeholder="Enter device id..." value="123456" />
+      </div>
+      <div class="buttons-block">
+        <button class="connection disconnected">CONNECT</button>
+        <button class="ping">PING</button>
       </div>
     </div>
     <div class="message-block">
