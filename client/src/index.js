@@ -8,17 +8,17 @@ let
   operatorIdBlock,
   operatorIdInput,
   connectBtn,
-  actionsBlock,
+  actionsWrapper,
   gpioBlock,
-  gpioButton,
+  gpioBtn,
   gpioPin,
   gpioHighLow,
   pulseBlock,
-  pulseButton,
+  pulseBtn,
   pulsePin,
   pulseHighLow,
   stringBlock,
-  stringButton,
+  stringBtn,
   stringInput,
   pingBtn,
   clearBtn,
@@ -46,7 +46,7 @@ const socketHandler = () => {
     const data = {
       id: type === 'device' ? deviceIdInput.value : operatorIdInput.value,
       type,
-      command: 'init',
+      command: 'INIT',
     }
 
     if (type === 'device') {
@@ -78,17 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
   operatorIdBlock = document.querySelector('.operator-id-block')
   operatorIdInput = operatorIdBlock.querySelector('input')
   connectBtn = document.querySelector('.connection')
-  actionsBlock = document.querySelector('.actions-block')
+  actionsWrapper = document.querySelector('.actions-wrapper')
   gpioBlock = document.querySelector('.gpio-block')
-  gpioButton = gpioBlock.querySelector('button')
+  gpioBtn = gpioBlock.querySelector('button')
   gpioPin = gpioBlock.querySelector('.pin')
   gpioHighLow = gpioBlock.querySelector('.high-low')
   pulseBlock = document.querySelector('.pulse-block')
-  pulseButton = pulseBlock.querySelector('button')
+  pulseBtn = pulseBlock.querySelector('button')
   pulsePin = pulseBlock.querySelector('.pin')
   pulseHighLow = pulseBlock.querySelector('.high-low')
   stringBlock = document.querySelector('.string-block')
-  stringButton = stringBlock.querySelector('button')
+  stringBtn = stringBlock.querySelector('button')
   stringInput = stringBlock.querySelector('input')
   pingBtn = document.querySelector('.ping-block button')
   clearBtn = document.querySelector('.message-block .messages-header .clear-btn')
@@ -112,28 +112,90 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  pingBtn.addEventListener('click', () => {
-    const type = typeSelect.value
-
-    const data = {
-      id: operatorIdInput.value,
-      type,
-      command: 'ping',
-      device: deviceIdInput.value
-    }
-
-    ws.send(JSON.stringify(data))
-  })
-
   clearBtn.addEventListener('click', () => {
     messagesArea.value = ''
   })
 
   typeSelect.addEventListener('change', () => {
     if (typeSelect.value === 'device') {
-      actionsBlock.style.display = 'none'
+      actionsWrapper.style.display = 'none'
     } else {
-      actionsBlock.style.display = 'block'
+      actionsWrapper.style.display = 'block'
     }
+  })
+
+  gpioBtn.addEventListener('click', () => {
+    const pin = gpioPin.value
+    const val = gpioHighLow.value
+
+    if (!pin || !val) {
+      return
+    }
+
+    const data = {
+      id: operatorIdInput.value,
+      type: typeSelect.value,
+      device: deviceIdInput.value,
+      command: 'GPIO',
+      data: {
+        pin,
+        val,
+      }
+    }
+
+    ws.send(JSON.stringify(data))
+  })
+
+  pulseBtn.addEventListener('click', () => {
+    const pin = pulsePin.value
+    const val = pulseHighLow.value
+
+    if (!pin || !val) {
+      return
+    }
+
+    const data = {
+      id: operatorIdInput.value,
+      type: typeSelect.value,
+      device: deviceIdInput.value,
+      command: 'PULSE',
+      data: {
+        pin,
+        val,
+      }
+    }
+
+    ws.send(JSON.stringify(data))
+  })
+
+  stringBtn.addEventListener('click', () => {
+    const val = stringInput.value
+
+    if (!val) {
+      return
+    }
+
+    const data = {
+      id: operatorIdInput.value,
+      type: typeSelect.value,
+      device: deviceIdInput.value,
+      command: 'STR',
+      data: {
+        val,
+      }
+    }
+
+    ws.send(JSON.stringify(data))
+  })
+
+  pingBtn.addEventListener('click', () => {
+    const data = {
+      id: operatorIdInput.value,
+      type: typeSelect.value,
+      device: deviceIdInput.value,
+      command: 'PING',
+    }
+
+    ws.send(JSON.stringify(data))
   })
 })

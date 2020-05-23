@@ -13,8 +13,6 @@ server.listen(3000, () => {
 })
 
 wss.on('connection', socket => {
-  socket.send('websocket connected')
-
   socket.on('message', function(data){
     const parsedData = JSON.parse(data)
     const msg = messagesHandler(socket, parsedData)
@@ -36,7 +34,7 @@ const messagesHandler = (socket, data) => {
 }
 
 const deviceHandler = (socket, {command, id}) => {
-  if (command === 'init') {
+  if (command === 'INIT') {
     devices = {
       ...devices,
       [id]: {
@@ -47,22 +45,22 @@ const deviceHandler = (socket, {command, id}) => {
   }
 }
 
-const operatorHandler = (socket, {command, device, id}) => {
-  if (command === 'init') {
-    if (!isDeviceExists(device)) {
-      return {
-        status: "error",
-        value: "device does't exists",
-      }
+const operatorHandler = (socket, {device, id, command, data}) => {
+  if (!isDeviceExists(device)) {
+    return {
+      status: "error",
+      value: "device does't exists",
     }
+  }
 
-    if (!isDeviceConnected(device)) {
-      return {
-        status: "error",
-        value: "device is not connected",
-      }
+  if (!isDeviceConnected(device)) {
+    return {
+      status: "error",
+      value: "device is not connected",
     }
+  }
 
+  if (command === 'INIT') {
     devices = {
       ...devices,
       [device]: {
@@ -73,12 +71,23 @@ const operatorHandler = (socket, {command, device, id}) => {
         }
       }
     }
-  } else if (command === 'ping') {
-    const data = {
-      message: 'ping'
-    }
+  } else if (command === 'GPIO') {
+    devices[device].socket.send(JSON.stringify({
+      command,
+      data,
+    }));
+  } else if (command === 'PULSE') {
+    devices[device].socket.send(JSON.stringify({
+      command,
+      data,
+    }));
+  } else if (command === 'STR') {
+    devices[device].socket.send(JSON.stringify({
+      command,
+      data,
+    }));
+  } else if (command === 'PING') {
     devices[device].socket.ping();
-    //devices[device].socket.send(JSON.stringify(data));
   }
 }
 
