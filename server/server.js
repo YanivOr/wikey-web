@@ -77,7 +77,8 @@ const operatorHandler = (socket, {command, device, id}) => {
     const data = {
       message: 'ping'
     }
-    devices[device].socket.send(JSON.stringify(data));
+    devices[device].socket.ping();
+    //devices[device].socket.send(JSON.stringify(data));
   }
 }
 

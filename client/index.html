@@ -9,12 +9,13 @@
 </head>
 <body>
   <div class="container">
-    <div class="toolbar">
+    <div class="title">CONNECT</div>
+    <div class="connection-block">
       <div class="inputs-block">
         <label>Type</label>
         <select>
-          <option value="device">device</option>
           <option value="operator">operator</option>
+          <option value="device">device</option>
         </select>
         <div class="device-id-block">
           <label>Device ID</label>
@@ -25,9 +26,38 @@
           <input type="text" value="111111" />
         </div>
       </div>
-      <div class="buttons-block">
-        <button class="connection disconnected">CONNECT</button>
-        <button class="ping">PING</button>
+      <button class="connection disconnected">CONNECT</button>
+    </div>
+    <div class="title">ACTIONS</div>
+    <div class="actions-block">
+      <div class="action-row gpio-block">
+        <button>GPIO</button>
+        <label>Pin #</label>
+        <select class="pin"></select>
+        <label>High / Low</label>
+        <select class="high-low">
+          <option></option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+        </select>
+      </div>
+      <div class="action-row pulse-block">
+        <button>PULSE</button>
+        <label>Pin #</label>
+        <select class="pin"></select>
+        <label>High / Low</label>
+        <select class="high-low">
+          <option></option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+        </select>
+      </div>
+      <div class="action-row string-block">
+        <button>STRING</button>
+        <input type="text" />
+      </div>
+      <div class="action-row ping-block">
+        <button>PING</button>
       </div>
     </div>
     <div class="message-block">

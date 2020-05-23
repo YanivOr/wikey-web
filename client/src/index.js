@@ -1,13 +1,26 @@
 const WS_URL = 'ws://localhost:3000'
 
 let ws
-let 
+let
   typeSelect,
   deviceIdBlock,
-  operatorIdBlock,
   deviceIdInput,
+  operatorIdBlock,
   operatorIdInput,
   connectBtn,
+  actionsBlock,
+  gpioBlock,
+  gpioButton,
+  gpioPin,
+  gpioHighLow,
+  pulseBlock,
+  pulseButton,
+  pulsePin,
+  pulseHighLow,
+  stringBlock,
+  stringButton,
+  stringInput,
+  pingBtn,
   clearBtn,
   messagesArea
 
@@ -61,13 +74,33 @@ const socketHandler = () => {
 document.addEventListener('DOMContentLoaded', () => {
   typeSelect = document.querySelector('.inputs-block select')
   deviceIdBlock = document.querySelector('.device-id-block')
-  operatorIdBlock = document.querySelector('.operator-id-block')
   deviceIdInput = deviceIdBlock.querySelector('input')
+  operatorIdBlock = document.querySelector('.operator-id-block')
   operatorIdInput = operatorIdBlock.querySelector('input')
-  connectBtn = document.querySelector('.buttons-block .connection')
-  pingBtn = document.querySelector('.buttons-block .ping')
+  connectBtn = document.querySelector('.connection')
+  actionsBlock = document.querySelector('.actions-block')
+  gpioBlock = document.querySelector('.gpio-block')
+  gpioButton = gpioBlock.querySelector('button')
+  gpioPin = gpioBlock.querySelector('.pin')
+  gpioHighLow = gpioBlock.querySelector('.high-low')
+  pulseBlock = document.querySelector('.pulse-block')
+  pulseButton = pulseBlock.querySelector('button')
+  pulsePin = pulseBlock.querySelector('.pin')
+  pulseHighLow = pulseBlock.querySelector('.high-low')
+  stringBlock = document.querySelector('.string-block')
+  stringButton = stringBlock.querySelector('button')
+  stringInput = stringBlock.querySelector('input')
+  pingBtn = document.querySelector('.ping-block button')
   clearBtn = document.querySelector('.message-block .messages-header .clear-btn')
   messagesArea = document.querySelector('.message-block .messages')
+
+  // fiil-up gpio options
+  let gpioOptions = `<option value=""></option>`
+  for (let i=0;i<17;i++) {
+    gpioOptions += `<option value="${i}">${i}</option>`
+  }
+  gpioPin.innerHTML = gpioOptions
+  pulsePin.innerHTML = gpioOptions
 
   connectBtn.addEventListener('click', () => {
     if(connectBtn.classList.contains('disconnected')) {
@@ -98,11 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeSelect.addEventListener('change', () => {
     if (typeSelect.value === 'device') {
-      operatorIdBlock.style.display = 'none'
-      pingBtn.style.display = 'none'
+      actionsBlock.style.display = 'none'
     } else {
-      operatorIdBlock.style.display = 'flex'
-      pingBtn.style.display = 'inline'
+      actionsBlock.style.display = 'block'
     }
   })
 })
