@@ -38,7 +38,7 @@ const connectionHandler = (connected) => {
 }
 
 const socketHandler = () => {
-  ws.onopen = function () {
+  ws.onopen = () => {
     connectionHandler(true)
     
     const type = typeSelect.value
@@ -57,15 +57,15 @@ const socketHandler = () => {
     }
   }
 
-  ws.onmessage = function (e) {
+  ws.onmessage = (e) => {
     messagesArea.value += `${e.data}\r\n`
   }
 
-  ws.onerror = function (e) {
+  ws.onerror = (e) => {
     messagesArea.value += `Error: ${e.data}\r\n`
   }
 
-  ws.onclose = function () {
+  ws.onclose = () => {
     connectionHandler(false)
     ws = null
   }
