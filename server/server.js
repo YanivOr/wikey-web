@@ -13,8 +13,14 @@ server.listen(3000, () => {
 })
 
 wss.on('connection', socket => {
-  socket.on('message', function(data){
-    const parsedData = JSON.parse(data)
+  socket.on('message', (data) =>{
+    let parsedData = {};
+
+    try {
+      parsedData = JSON.parse(data)
+    } catch (e) {
+      console.log(`Invalid JSON: ${data}`)
+    }
     const msg = messagesHandler(socket, parsedData)
 
     if (msg) {
