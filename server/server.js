@@ -3,8 +3,8 @@ const http = require('http')
 const express = require('express')
 const app = express()
 const server = http.createServer(app)
-const wss = new websocket.Server({ server })
-app.on('upgrade', wss.handleUpgrade)
+const ws = new websocket.Server({ server })
+app.on('upgrade', ws.handleUpgrade)
 
 let devices = {};
 
@@ -12,7 +12,7 @@ server.listen(3000, () => {
   console.log('server started on PORT 3000')
 })
 
-wss.on('connection', socket => {
+ws.on('connection', socket => {
   socket.on('message', (data) =>{
     let parsedData = {};
 
