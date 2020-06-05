@@ -6,7 +6,7 @@ const server = http.createServer(app)
 const ws = new websocket.Server({ server })
 app.on('upgrade', ws.handleUpgrade)
 
-let devices = {};
+let devices = {}
 
 server.listen(3000, () => {
   console.log('server started on PORT 3000')
@@ -14,7 +14,7 @@ server.listen(3000, () => {
 
 ws.on('connection', socket => {
   socket.on('message', (data) =>{
-    let parsedData = {};
+    let parsedData = {}
 
     try {
       parsedData = JSON.parse(data)
@@ -81,19 +81,19 @@ const operatorHandler = (socket, {device, id, command, data}) => {
     devices[device].socket.send(JSON.stringify({
       command,
       data,
-    }));
+    }))
   } else if (command === 'PULSE') {
     devices[device].socket.send(JSON.stringify({
       command,
       data,
-    }));
+    }))
   } else if (command === 'STR') {
     devices[device].socket.send(JSON.stringify({
       command,
       data,
-    }));
+    }))
   } else if (command === 'PING') {
-    devices[device].socket.ping();
+    devices[device].socket.ping()
   }
 }
 
