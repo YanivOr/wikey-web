@@ -17,6 +17,8 @@ let
   pulseBtn,
   pulsePin,
   pulseHighLow,
+  pulseInterval,
+  pulseDuration,
   stringBlock,
   stringBtn,
   stringInput,
@@ -87,6 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
   pulseBtn = pulseBlock.querySelector('button')
   pulsePin = pulseBlock.querySelector('.pin')
   pulseHighLow = pulseBlock.querySelector('.high-low')
+  pulseInterval = pulseBlock.querySelector('.interval')
+  pulseDuration = pulseBlock.querySelector('.duration')
   stringBlock = document.querySelector('.string-block')
   stringBtn = stringBlock.querySelector('button')
   stringInput = stringBlock.querySelector('input')
@@ -148,9 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   pulseBtn.addEventListener('click', () => {
     const pin = pulsePin.value
-    const val = pulseHighLow.value
+    const startAs = pulseHighLow.value
+    const interval = pulseInterval.value
+    const duration = pulseDuration.value
 
-    if (!pin || !val) {
+    if (!pin || !startAs || !interval || !duration) {
       return
     }
 
@@ -161,7 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
       command: 'PULSE',
       data: {
         pin,
-        val,
+        startAs,
+        interval,
+        duration,
       }
     }
 
