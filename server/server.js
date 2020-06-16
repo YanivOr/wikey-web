@@ -8,8 +8,8 @@ app.on('upgrade', ws.handleUpgrade)
 
 let devices = {}
 
-server.listen(3000, () => {
-  console.log('server started on PORT 3000')
+server.listen(8000, () => {
+  console.log('server started on PORT 8000')
 })
 
 ws.on('connection', socket => {
