@@ -113,8 +113,8 @@ label {
   width: 400px;
 }
 
-.actions-block input.interval, .actions-block input.duration {
-  width: 70px;
+.actions-block input.interval, .actions-block input.amount {
+  width: 50px;
 }
 
 .actions-block .action-row {
