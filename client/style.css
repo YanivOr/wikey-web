@@ -105,7 +105,7 @@ label {
   border-radius: 3px;
   color: #eeeeee;
   padding: 5px 3px;
-  width: 50px;
+  width: 60px;
   margin-right: 10px;
 }
 
@@ -113,7 +113,7 @@ label {
   width: 400px;
 }
 
-.actions-block input.interval, .actions-block input.amount {
+.actions-block input.freq, .actions-block input.amount {
   width: 50px;
 }
 
